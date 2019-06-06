@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com.plugin.ejworktxgps" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<name>ejwork.tx.gps</name>
+<js-module name="ejwork.tx.gps" src="www/ejwork.tx.gps.js">
+<clobbers target="cordova.plugins.ejwork.tx.gps" />
+</js-module>
+<platform name="android">
+<config-file target="AndroidManifest.xml" parent="/manifest">
+			<!-- 腾讯定位 sdk 要求的权限  (开始) -->
+			<!-- 通过GPS得到精确位置 -->
+			<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+			<!-- 通过网络得到粗略位置 -->
+			<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+			<!-- 访问网络. 某些位置信息需要从网络服务器获取 -->
+			<uses-permission android:name="android.permission.INTERNET" />
+			<!-- 访问WiFi状态. 需要WiFi信息用于网络定位 -->
+			<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+			<!-- 修改WiFi状态. 发起WiFi扫描, 需要WiFi信息用于网络定位 -->
+			<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+			<!-- 访问网络状态, 检测网络的可用性. 需要网络运营商相关信息用于网络定位 -->
+			<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+			<!-- 访问网络的变化, 需要某些信息用于网络定位 -->
+			<uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+			<!-- 访问手机当前状态, 需要device id用于网络定位 -->
+			<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+			<!-- 腾讯定位 sdk 要求的权限 (结束) -->
+		</config-file>
+<config-file target="AndroidManifest.xml" parent="/manifest/application">
+			<meta-data android:name="TencentMapSDK" android:value="B24BZ-OS5W2-OVNUT-CHJ3S-35DN6-ZABA2" />
+		</config-file>
+<config-file parent="/*" target="res/xml/config.xml">
+	<feature name="ejwork.tx.gps">
+		<param name="android-package" value="com.plugin.ejworktxgps.ejwork.tx.gps" />
+	</feature>
+</config-file>
+<source-file src="src/android/TencentLocationSDK_v6.1.2_r1df4baaa_170627_1056.jar" target-dir="libs"/>
+		<source-file src="src/android/arm64-v8a/libtencentloc.so" target-dir="libs/arm64-v8a"/>
+		<source-file src="src/android/armeabi/libtencentloc.so" target-dir="libs/armeabi"/>
+		<source-file src="src/android/armeabi-v7a/libtencentloc.so" target-dir="libs/armeabi-v7a"/>
+		<source-file src="src/android/x86/libtencentloc.so" target-dir="libs/x86"/>
+		<source-file src="src/android/x86_64/libtencentloc.so" target-dir="libs/x86_64"/>
+<source-file src="src/android/ejwork.tx.gps.java" target-dir="src/com/plugin/ejworktxgps/ejwork.tx.gps" />
+</platform>
+<platform name="ios">
+    <framework src="CoreLocation.framework" />
+
+		<config-file target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
+			<string>我们需要通过您的地理位置信息获取您的周边数据</string>
+		</config-file>
+		<config-file target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
+			<string>我们需要通过您的地理位置信息获取您的周边数据</string>
+		</config-file>
+    <config-file parent="/*" target="config.xml">
+        <feature name="ejwork.tx.gps">
+            <param name="ios-package" value="ejwork.tx.gps" />
+        </feature>
+    </config-file>
+    <header-file src="src/ios/ejwork.tx.gps.h" />
+    <source-file src="src/ios/ejwork.tx.gps.m" />
+</platform>
+</plugin>
